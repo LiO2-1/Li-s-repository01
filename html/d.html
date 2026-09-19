@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>未来科技登录界面 | 双形态切换</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #080a13;
+  transition: background 0.6s ease;
+}
+
+/* 科技线条背景 */
+body::before {
+  content: "";
+  position: fixed;
+  inset:0;
+  background-image: 
+    linear-gradient(rgba(0,180,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,180,255,0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index:-1;
+  transition: opacity 0.6s;
+}
+
+/* 暗色形态 */
+body.dark-mode{
+  background: #080a13;
+}
+body.dark-mode::before{
+  opacity:1;
+}
+
+/* 浅蓝未来形态 */
+body.light-mode{
+  background: #e8f2ff;
+}
+body.light-mode::before{
+  opacity:0.2;
+}
+
+.login-card{
+  width:400px;
+  padding:40px 32px;
+  border-radius:16px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0,170,255,0.25);
+  box-shadow: 0 0 30px rgba(0,160,255,0.15);
+  transition: all 0.6s ease;
+}
+
+body.dark-mode .login-card{
+  background:rgba(10,16,30,0.65);
+}
+body.light-mode .login-card{
+  background:rgba(255,255,255,0.72);
+  border:1px solid rgba(0,130,220,0.2);
+}
+
+.title{
+  text-align:center;
+  font-size:28px;
+  letter-spacing:3px;
+  margin-bottom:32px;
+  transition:color 0.6s;
+}
+body.dark-mode .title{
+  color:#00ccff;
+  text-shadow:0 0 10px rgba(0,200,255,0.4);
+}
+body.light-mode .title{
+  color:#004480;
+}
+
+.form-item{
+  margin-bottom:22px;
+}
+.form-item label{
+  display:block;
+  font-size:14px;
+  margin-bottom:8px;
+  transition:color 0.6s;
+}
+body.dark-mode .form-item label{
+  color:#b0e8ff;
+}
+body.light-mode .form-item label{
+  color:#103459;
+}
+
+.form-item input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:10px;
+  font-size:16px;
+  transition: all 0.4s;
+}
+body.dark-mode .form-item input{
+  background:rgba(0,20,40,0.45);
+  border:1px solid rgba(0,180,255,0.35);
+  color:#eaf8ff;
+}
+body.light-mode .form-item input{
+  background:rgba(255,255,255,0.85);
+  border:1px solid #b2d8f8;
+  color:#0a2440;
+}
+.form-item input:focus{
+  outline:none;
+  border-color:#00bfff;
+  box-shadow:0 0 14px rgba(0,180,255,0.4);
+}
+
+#loginBtn{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:none;
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:0.4s;
+  margin-top:8px;
+}
+body.dark-mode #loginBtn{
+  background:linear-gradient(90deg,#0077bb,#00ccff);
+  color:#fff;
+}
+body.light-mode #loginBtn{
+  background:linear-gradient(90deg,#0088dd,#00b8ee);
+  color:#fff;
+}
+#loginBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 20px rgba(0,170,255,0.45);
+}
+
+/* 切换按钮 */
+.toggle-wrap{
+  text-align:right;
+  margin-bottom:20px;
+}
+#toggleBtn{
+  padding:8px 14px;
+  border-radius:8px;
+  border:1px solid rgba(0,170,255,0.4);
+  background:transparent;
+  cursor:pointer;
+  transition:all 0.4s;
+}
+body.dark-mode #toggleBtn{
+  color:#00ccff;
+}
+body.light-mode #toggleBtn{
+  color:#005599;
+}
+
+#msg{
+  text-align:center;
+  margin-top:18px;
+  font-size:15px;
+}
+.error{color:#ff5c6c;}
+.success{color:#36ff9c;}
+</style>
+</head>
+<body class="dark-mode">
+  <div class="login-card">
+    <div class="toggle-wrap">
+      <button id="toggleBtn">切换界面形态</button>
+    </div>
+    <h2 class="title">ACCESS LOGIN</h2>
+    <div class="form-item">
+      <label>USERNAME / 用户名</label>
+      <input type="text" id="username" placeholder="请输入账号">
+    </div>
+    <div class="form-item">
+      <label>PASSWORD / 密码</label>
+      <input type="password" id="pwd" placeholder="请输入密码">
+    </div>
+    <button id="loginBtn">AUTHENTICATE 认证登录</button>
+    <div id="msg"></div>
+  </div>
+
+<script>
+//账号密码
+const userCorrect = "admin";
+const pwdCorrect = "123456";
+
+const username = document.getElementById("username");
+const pwd = document.getElementById("pwd");
+const loginBtn = document.getElementById("loginBtn");
+const msg = document.getElementById("msg");
+const toggleBtn = document.getElementById("toggleBtn");
+const bodyDom = document.body;
+
+//形态切换
+toggleBtn.onclick = function(){
+  bodyDom.classList.toggle("dark-mode");
+  bodyDom.classList.toggle("light-mode");
+}
+
+//登录校验
+loginBtn.onclick = function(){
+  const u = username.value.trim();
+  const p = pwd.value.trim();
+  if(!u || !p){
+    msg.className = "error";
+    msg.innerText = "账号和密码不能为空";
+    return;
+  }
+  if(u === userCorrect && p === pwdCorrect){
+    msg.className = "success";
+    msg.innerText = "✅ 身份验证通过";
+  }else{
+    msg.className = "error";
+    msg.innerText = "❌ 账号或密码错误";
+  }
+}
+</script>
+</body>
+</html>

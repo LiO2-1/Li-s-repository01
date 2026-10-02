@@ -5,12 +5,20 @@ import java.time.LocalTime;
 
 public class Schedule {
     private LocalDate today ;
-
+    private boolean update;
     private boolean morning;
     private LocalTime mend;
     private LocalTime mstart;
     private int mTotalNumber;
     private int mAppointNumber;
+
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
+    }
 
     private boolean afternoon;
 

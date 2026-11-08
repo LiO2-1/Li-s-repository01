@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    li{
+        list-style: none;
+        box-shadow: 5px 5px 6px;
+    }
+
+    .product{
+        margin: 50px auto;
+        width: 1226px;
+        height: 628px;
+        background-color: white;
+    }
+
+    .left{
+        float:left;
+        width: 234px;
+        height: 628px;
+        background-color: rgb(80, 70, 233);
+        box-shadow: 5px 5px 6px;
+    }
+
+    .right{
+        float: right;
+        width: 978px;
+        height: 628px;
+        background-color: white;
+    }
+
+    .right li{
+        float: left;
+        width: 234px;
+        height: 300px;
+        background-color: rgb(80, 70, 233);
+        margin-right: 14px;
+        margin-bottom: 14px;
+        
+    }
+
+    .right li:nth-child(4n){
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+
+    .cl{
+        margin-top: 14px;
+    }
+</style>
+</head>
+<body>
+    <div class="product">
+        <div class="left"></div>
+        <div class="right">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="cl"></li>
+                <li class="cl"></li>
+                <li class="cl"></li>
+                <li class="cl"></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html

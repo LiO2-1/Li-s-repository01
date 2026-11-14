@@ -57,4 +57,16 @@ public class MyArrayList<E> {
             action.accept((E)Date[i]);
         }
     }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < size; i++) {
+            E e = (E)Date[i];
+            sb.append(e).append(i == size-1 ? "" : ",");
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }
